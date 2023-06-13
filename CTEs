@@ -1,0 +1,14 @@
+/*  Today's Topic: CTEs */
+
+With CTE_Employee as (
+Select FirstName,LastName,Gender,Salary,
+Count (gender) Over (Partition by Gender) as TotalGender,
+Avg(Salary) OVer (PARTITION By Gender) As AvgSalary
+From EmployeeDemographics emp
+Join EmployeeSalary sal
+On emp.EmployeeID = sal.EmployeeID
+Where Salary > '45000'
+)
+
+Select FirstName,AvgSalary
+From CTE_Employee
